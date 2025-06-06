@@ -1,22 +1,17 @@
 // js/admin.js
 
 // --- GLOBALE DATEN (Client-seitig für das Admin Panel) ---
-// let adminImportantInfos = [ ... ]; // WIRD GELÖSCHT!
+// Das 'adminImportantInfos' Array wird nicht mehr benötigt, die Daten kommen direkt von der API.
+
 let adminEmployeesData = [
-    // DATENSTRUKTUR ERWEITERT: vacationDaysTaken, initialisiert mit 0
-    { id: 1, name: "Natalia Rostova", email: "natalia@example.com", role: "Mitarbeiterin", vacationDaysAnnual: 28, vacationDaysTaken: 5 }, // Bsp: 5 Tage schon genommen
+    { id: 1, name: "Natalia Rostova", email: "natalia@example.com", role: "Mitarbeiterin", vacationDaysAnnual: 28, vacationDaysTaken: 5 },
     { id: 2, name: "Max Mustermann", email: "max@example.com", role: "Mitarbeiter", vacationDaysAnnual: 25, vacationDaysTaken: 0 },
-    { id: 3, name: "Julia Schmidt", email: "julia@example.com", role: "Admin", vacationDaysAnnual: 30, vacationDaysTaken: 10 } // Bsp: 10 Tage schon genommen
+    { id: 3, name: "Julia Schmidt", email: "julia@example.com", role: "Admin", vacationDaysAnnual: 30, vacationDaysTaken: 10 }
 ];
 let nextEmployeeId = 4;
 const allShiftData = {
-    "2025-W23": [ { name: "Natalia", Mo: "10-17 Uhr*", Di: "10-17 Uhr", Mi: "Urlaub", Do: "Urlaub", Fr: "10-17 Uhr", Sa: "/", So: "/", privateNotes: { Mo: "Einarbeitung neuer Kollege" } }, { name: "Max M.", Mo: "08-15 Uhr", Di: "/", Mi: "08-15 Uhr", Do: "08-15 Uhr", Fr: "/", Sa: "10-14 Uhr", So: "/" }, { name: "Julia S.", Mo: "/", Di: "14:30-19 Uhr", Mi: "14-20 Uhr", Do: "14-20 Uhr", Fr: "/", Sa: "10-18 Uhr", So: "10-18 Uhr" } ],
-    "2025-W24": [ { name: "Natalia", Mo: "10-18 Uhr", Di: "10-18 Uhr", Mi: "Team-Meeting 9 Uhr", Do: "/", Fr: "10-16 Uhr", Sa: "/", So: "/" }, { name: "Max M.", Mo: "/", Di: "09-16 Uhr", Mi: "09-16 Uhr", Do: "09-16 Uhr", Fr: "/", Sa: "Urlaub", So: "Urlaub" }, { name: "Julia S.", Mo: "10-17 Uhr", Di: "/", Mi: "10-17 Uhr", Do: "10-17 Uhr", Fr: "10-17 Uhr", Sa: "/", So: "/" } ],
-    "2025-W22": [ { name: "Natalia", Mo: "Urlaub", Di: "Urlaub", Mi: "Urlaub", Do: "Urlaub", Fr: "Urlaub", Sa: "/", So: "/" }, { name: "Max M.", Mo: "09-17 Uhr", Di: "09-17 Uhr", Mi: "/", Do: "/", Fr: "09-17 Uhr", Sa: "09-17 Uhr", So: "/" } ],
-    "2025-W25": [ { name: "Natalia", Mo: "10-17 Uhr", Di: "10-17 Uhr", Mi: "10-14 Uhr", Do: "10-14 Uhr", Fr: "/", Sa: "/", So: "/" }, { name: "Max M.", Mo: "08-16 Uhr", Di: "08-16 Uhr", Mi: "/", Do: "/", Fr: "08-12 Uhr", Sa: "Urlaub", So: "Urlaub" } ],
-    "2025-W26": [ { name: "Natalia", Mo: "/", Di: "/", Mi: "12-20 Uhr", Do: "12-20 Uhr", Fr: "12-20 Uhr*", Sa: "/", So: "/", privateNotes: { Fr: "Inventurvorbereitung" } }, { name: "Max M.", Mo: "Urlaub", Di: "Urlaub", Mi: "09-17 Uhr", Do: "09-17 Uhr", Fr: "09-17 Uhr", Sa: "/", So: "/" } ]
+    "2025-W23": [ { name: "Natalia", Mo: "10-17 Uhr*", Di: "10-17 Uhr", Mi: "Urlaub", Do: "Urlaub", Fr: "10-17 Uhr", Sa: "/", So: "/", privateNotes: { Mo: "Einarbeitung neuer Kollege" } }, { name: "Max M.", Mo: "08-15 Uhr", Di: "/", Mi: "08-15 Uhr", Do: "08-15 Uhr", Fr: "/", Sa: "10-14 Uhr", So: "/" }, { name: "Julia S.", Mo: "/", Di: "14:30-19 Uhr", Mi: "14-20 Uhr", Do: "14-20 Uhr", Fr: "/", Sa: "10-18 Uhr", So: "10-18 Uhr" } ], "2025-W24": [ { name: "Natalia", Mo: "10-18 Uhr", Di: "10-18 Uhr", Mi: "Team-Meeting 9 Uhr", Do: "/", Fr: "10-16 Uhr", Sa: "/", So: "/" }, { name: "Max M.", Mo: "/", Di: "09-16 Uhr", Mi: "09-16 Uhr", Do: "09-16 Uhr", Fr: "/", Sa: "Urlaub", So: "Urlaub" }, { name: "Julia S.", Mo: "10-17 Uhr", Di: "/", Mi: "10-17 Uhr", Do: "10-17 Uhr", Fr: "10-17 Uhr", Sa: "/", So: "/" } ], "2025-W22": [ { name: "Natalia", Mo: "Urlaub", Di: "Urlaub", Mi: "Urlaub", Do: "Urlaub", Fr: "Urlaub", Sa: "/", So: "/" }, { name: "Max M.", Mo: "09-17 Uhr", Di: "09-17 Uhr", Mi: "/", Do: "/", Fr: "09-17 Uhr", Sa: "09-17 Uhr", So: "/" } ], "2025-W25": [ { name: "Natalia", Mo: "10-17 Uhr", Di: "10-17 Uhr", Mi: "10-14 Uhr", Do: "10-14 Uhr", Fr: "/", Sa: "/", So: "/" }, { name: "Max M.", Mo: "08-16 Uhr", Di: "08-16 Uhr", Mi: "/", Do: "/", Fr: "08-12 Uhr", Sa: "Urlaub", So: "Urlaub" } ], "2025-W26": [ { name: "Natalia", Mo: "/", Di: "/", Mi: "12-20 Uhr", Do: "12-20 Uhr", Fr: "12-20 Uhr*", Sa: "/", So: "/", privateNotes: { Fr: "Inventurvorbereitung" } }, { name: "Max M.", Mo: "Urlaub", Di: "Urlaub", Mi: "09-17 Uhr", Do: "09-17 Uhr", Fr: "09-17 Uhr", Sa: "/", So: "/" } ]
 };
-// Daten für Urlaubsanträge
 let adminVacationRequestsData = [
     { id: 1, employeeId: 1, employeeName: "Natalia Rostova", startDate: "2025-07-21", endDate: "2025-07-25", reason: "Sommerurlaub", requestedDays: 5, status: "beantragt" },
     { id: 2, employeeId: 2, employeeName: "Max Mustermann", startDate: "2025-08-04", endDate: "2025-08-08", reason: "Familienbesuch", requestedDays: 5, status: "beantragt" },
@@ -105,12 +100,10 @@ document.addEventListener('DOMContentLoaded', function() {
         return `${formatAdminNumber(dateObj.getDate())}.${formatAdminNumber(dateObj.getMonth() + 1)}.${dateObj.getFullYear()}`;
     }
 
-    // --- FUNKTIONEN FÜR "WICHTIGE INFOS VERWALTEN" ---
-    
-    // ANGEPASSTE Funktion zum Anzeigen der Infos aus der API
+    // --- NEU: FUNKTIONEN FÜR "WICHTIGE INFOS VERWALTEN" (mit API-Anbindung) ---
     async function renderImportantInfosList() {
         if (!importantInfosListUL) return;
-        importantInfosListUL.innerHTML = '<li>Lade Infos...</li>'; // Ladezustand
+        importantInfosListUL.innerHTML = '<li>Lade Infos...</li>';
 
         try {
             const response = await fetch('/api/get-infos');
@@ -136,7 +129,32 @@ document.addEventListener('DOMContentLoaded', function() {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.textContent = 'Löschen';
                 deleteBtn.classList.add('delete-info-btn');
-                // deleteBtn.dataset.id = info.id; // Später für Löschen via API
+                deleteBtn.dataset.id = info.id;
+
+                deleteBtn.addEventListener('click', async (event) => {
+                    const infoId = parseInt(event.currentTarget.dataset.id, 10);
+                    if (!infoId) return;
+
+                    if (confirm("Möchten Sie diese Information wirklich endgültig löschen?")) {
+                        try {
+                            const deleteResponse = await fetch('/api/delete-info', {
+                                method: 'POST',
+                                headers: { 'Content-Type': 'application/json' },
+                                body: JSON.stringify({ id: infoId })
+                            });
+
+                            if (!deleteResponse.ok) {
+                                throw new Error('Fehler beim Senden der Löschanfrage.');
+                            }
+                            
+                            await renderImportantInfosList();
+
+                        } catch (error) {
+                            console.error("Fehler beim Löschen der Info:", error);
+                            alert("Die Information konnte nicht gelöscht werden.");
+                        }
+                    }
+                });
 
                 li.appendChild(textSpan);
                 li.appendChild(deleteBtn);
@@ -149,10 +167,33 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     if (addInfoForm) {
-        addInfoForm.addEventListener('submit', function(event) {
+        addInfoForm.addEventListener('submit', async function(event) {
             event.preventDefault();
-            // Diese Funktionalität ist vorübergehend deaktiviert.
-            alert("Noch nicht implementiert: Das Hinzufügen von Infos muss noch auf die neue API umgestellt werden.");
+            const newText = newInfoTextInput.value.trim();
+
+            if (!newText) {
+                alert("Bitte geben Sie einen Text für die Information ein.");
+                return;
+            }
+
+            try {
+                const response = await fetch('/api/add-info', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ info_text: newText })
+                });
+
+                if (!response.ok) {
+                    throw new Error('Serverantwort war nicht OK.');
+                }
+                
+                newInfoTextInput.value = '';
+                await renderImportantInfosList();
+
+            } catch (error) {
+                console.error("Fehler beim Hinzufügen der Info:", error);
+                alert("Die Information konnte nicht gespeichert werden.");
+            }
         });
     }
 
@@ -200,8 +241,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     if (openAddEmployeeModalBtn) { openAddEmployeeModalBtn.addEventListener('click', () => openEmployeeModal('add')); }
-    const actualCloseEmployeeModalBtn = document.getElementById('closeEmployeeModalBtn');
-    if (actualCloseEmployeeModalBtn) { actualCloseEmployeeModalBtn.addEventListener('click', closeEmployeeModal); }
+    if (closeEmployeeModalBtn) { closeEmployeeModalBtn.addEventListener('click', closeEmployeeModal); }
     if (cancelEmployeeBtn) { cancelEmployeeBtn.addEventListener('click', closeEmployeeModal); }
     if (employeeModal) { employeeModal.addEventListener('click', function(event) { if (event.target === employeeModal) { closeEmployeeModal(); } }); }
     if (employeeForm) {
@@ -227,10 +267,10 @@ document.addEventListener('DOMContentLoaded', function() {
     // --- FUNKTIONEN FÜR ADMIN DASHBOARD ("ÜBERSICHT") ---
     function renderAdminDashboardStats() {
         if (statEmployeeCountEl) { statEmployeeCountEl.textContent = adminEmployeesData.length; }
-        // Wichtiger Hinweis: statInfoCountEl wird absichtlich noch nicht auf die API umgestellt,
-        // da dies eine asynchrone Operation erfordern und die Komplexität hier erhöhen würde.
-        // Es zeigt vorerst 0 oder einen veralteten Wert an, bis wir alle Daten beim Start laden.
-        if (statInfoCountEl) { statInfoCountEl.textContent = "N/A"; } // Zeigt an, dass der Wert aktuell nicht verfügbar ist
+        if (statInfoCountEl) {
+             // Zukünftig könnte man hier die Anzahl direkt aus renderImportantInfosList beziehen
+            statInfoCountEl.textContent = "Live";
+        }
         if (statPlannedWeeksCountEl) { statPlannedWeeksCountEl.textContent = Object.keys(allShiftData).length; }
         const statCardLinks = document.querySelectorAll('.stat-card .stat-link[data-section]');
         statCardLinks.forEach(link => {
@@ -274,10 +314,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     function openShiftEditModal(employeeName, dayKey, currentShiftText, currentPrivateNote, year, isoWeek) {
-        if (!shiftEditModal || !shiftEditEmployeeNameDisplay || !shiftEditDayDisplay || !shiftEditTextInput || !shiftEditPrivateNoteInput ||
-            !shiftEditEmployeeNameHidden || !shiftEditDayKeyHidden || !shiftEditYearHidden || !shiftEditIsoWeekHidden) {
-            console.error("Eines der Modal-Elemente für Schichtbearbeitung wurde nicht gefunden!"); return;
-        }
+        if (!shiftEditModal || !shiftEditModalTitle || !shiftEditForm) return;
         populateShiftSuggestions();
         shiftEditEmployeeNameHidden.value = employeeName; shiftEditDayKeyHidden.value = dayKey;
         shiftEditYearHidden.value = year; shiftEditIsoWeekHidden.value = isoWeek;
@@ -286,19 +323,12 @@ document.addEventListener('DOMContentLoaded', function() {
         shiftEditDayDisplay.textContent = displayDayNames[dayKey] || dayKey;
         shiftEditTextInput.value = currentShiftText.replace(/\*$/, '');
         shiftEditPrivateNoteInput.value = currentPrivateNote || '';
-        if (shiftEditModal) shiftEditModal.classList.add('show');
+        shiftEditModal.classList.add('show');
     }
     function closeShiftEditModal() { if (shiftEditModal) shiftEditModal.classList.remove('show'); }
-    
-    const actualCloseShiftEditModalBtn = document.getElementById('closeShiftEditModalBtn');
-    const actualCancelShiftEditBtn = document.getElementById('cancelShiftEditBtn');
-
-    if (actualCloseShiftEditModalBtn) { actualCloseShiftEditModalBtn.addEventListener('click', closeShiftEditModal); }
-    if (actualCancelShiftEditBtn) { actualCancelShiftEditBtn.addEventListener('click', closeShiftEditModal); }
-    
-    if (shiftEditModal) {
-        shiftEditModal.addEventListener('click', function(event) { if (event.target === shiftEditModal) { closeShiftEditModal(); } });
-    }
+    if (closeShiftEditModalBtn) { closeShiftEditModalBtn.addEventListener('click', closeShiftEditModal); }
+    if (cancelShiftEditBtn) { cancelShiftEditBtn.addEventListener('click', closeShiftEditModal); }
+    if (shiftEditModal) { shiftEditModal.addEventListener('click', function(event) { if (event.target === shiftEditModal) { closeShiftEditModal(); } }); }
     if (shiftEditForm) {
         shiftEditForm.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -309,13 +339,9 @@ document.addEventListener('DOMContentLoaded', function() {
             let newShiftText = shiftEditTextInput.value.trim();
             const newPrivateNote = shiftEditPrivateNoteInput.value.trim();
 
-            if (!employeeName || !dayKey || isNaN(year) || isNaN(isoWeek)) {
-                alert("Fehler: Kontextinformationen für die Schicht sind unvollständig."); return;
-            }
+            if (!employeeName || !dayKey || isNaN(year) || isNaN(isoWeek)) { alert("Fehler: Kontextinformationen für die Schicht sind unvollständig."); return; }
             if (newShiftText === "") {
-                if(confirm('Möchtest du die Schicht wirklich leeren? Verwende "/" für "frei". Ansonsten Abbrechen.')){
-                    newShiftText = "/";
-                } else { return; }
+                if(confirm('Möchtest du die Schicht wirklich leeren? Verwende "/" für "frei". Ansonsten Abbrechen.')){ newShiftText = "/"; } else { return; }
             }
             const weekKeyToUpdate = `${year}-W${isoWeek}`;
             if (!allShiftData[weekKeyToUpdate]) { allShiftData[weekKeyToUpdate] = []; }
@@ -327,16 +353,10 @@ document.addEventListener('DOMContentLoaded', function() {
             employeeShiftEntry.privateNotes = employeeShiftEntry.privateNotes || {};
             if (newPrivateNote) {
                 employeeShiftEntry.privateNotes[dayKey] = newPrivateNote;
-                if (!newShiftText.endsWith('*') && newShiftText !== "/" && newShiftText.toLowerCase() !== "urlaub") {
-                    newShiftText += '*';
-                }
+                if (!newShiftText.endsWith('*') && newShiftText !== "/" && newShiftText.toLowerCase() !== "urlaub") { newShiftText += '*'; }
             } else {
-                if (employeeShiftEntry.privateNotes && employeeShiftEntry.privateNotes[dayKey]) {
-                    delete employeeShiftEntry.privateNotes[dayKey];
-                }
-                if (employeeShiftEntry.privateNotes && Object.keys(employeeShiftEntry.privateNotes).length === 0) {
-                    delete employeeShiftEntry.privateNotes;
-                }
+                if (employeeShiftEntry.privateNotes && employeeShiftEntry.privateNotes[dayKey]) { delete employeeShiftEntry.privateNotes[dayKey]; }
+                if (employeeShiftEntry.privateNotes && Object.keys(employeeShiftEntry.privateNotes).length === 0) { delete employeeShiftEntry.privateNotes; }
                 newShiftText = newShiftText.replace(/\*$/, '');
             }
             employeeShiftEntry[dayKey] = newShiftText;
@@ -354,24 +374,32 @@ document.addEventListener('DOMContentLoaded', function() {
         adminEmployeesData.forEach(employee => {
             const row = adminShiftsTableBody.insertRow(); const nameCell = row.insertCell(); nameCell.textContent = employee.name; nameCell.style.fontWeight = "500";
             let employeeShiftsInWeekData = null; if (shiftsForThisWeek) { employeeShiftsInWeekData = shiftsForThisWeek.find(s => s.name === employee.name); }
-            adminDayNameKeys.forEach(dayKey => {
+            adminDayNameKeys.forEach((dayKey, index) => {
                 const shiftCell = row.insertCell();
                 const currentShiftText = employeeShiftsInWeekData && employeeShiftsInWeekData[dayKey] ? employeeShiftsInWeekData[dayKey] : "/";
                 let currentPrivateNote = ""; if (employeeShiftsInWeekData && employeeShiftsInWeekData.privateNotes && employeeShiftsInWeekData.privateNotes[dayKey]) { currentPrivateNote = employeeShiftsInWeekData.privateNotes[dayKey]; }
                 shiftCell.textContent = currentShiftText; shiftCell.style.textAlign = "center";
                 if (currentShiftText.toLowerCase() === "urlaub") { shiftCell.classList.add('shift-urlaub'); }
                 if (currentShiftText.includes('*') || currentPrivateNote) { shiftCell.classList.add('has-private-note'); }
-                shiftCell.addEventListener('click', () => {
-                    openShiftEditModal(employee.name, dayKey, currentShiftText, currentPrivateNote, year, isoWeek);
-                });
+                shiftCell.addEventListener('click', () => { openShiftEditModal(employee.name, dayKey, currentShiftText, currentPrivateNote, year, isoWeek); });
             });
         });
-        if (adminEmployeesData.length > 0 && !shiftsForThisWeek && adminShiftsTableBody.rows.length > 0) { const firstEmployeeRow = adminShiftsTableBody.rows[0]; if (firstEmployeeRow && firstEmployeeRow.cells.length > 1) { firstEmployeeRow.cells[1].textContent = "Keine Schichtdaten für diese Woche vorhanden."; firstEmployeeRow.cells[1].colSpan = 7; for(let k=2; k < 8; k++){ if(firstEmployeeRow.cells[k]) firstEmployeeRow.cells[k].style.display = 'none';}} }
     }
     function displayAdminShiftWeek(date) {
-        const currentDayOfWeek = date.getDay(); const mondayOffset = currentDayOfWeek === 0 ? -6 : 1 - currentDayOfWeek; const monday = new Date(date); monday.setDate(date.getDate() + mondayOffset); const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6); if (adminCurrentWeekDisplay) { const mondayFormattedNav = `${formatAdminNumber(monday.getDate())}. ${monday.toLocaleDateString('de-DE', { month: 'short' })}`; const sundayFormattedNav = `${formatAdminNumber(sunday.getDate())}. ${sunday.toLocaleDateString('de-DE', { month: 'short' })}`; adminCurrentWeekDisplay.textContent = `Woche: ${mondayFormattedNav} - ${sundayFormattedNav}`; } for (let i = 0; i < 7; i++) { const dayInCycle = new Date(monday); dayInCycle.setDate(monday.getDate() + i); const dayOfMonth = formatAdminNumber(dayInCycle.getDate()); const month = formatAdminNumber(dayInCycle.getMonth() + 1); if (adminDayHeaders[i]) { adminDayHeaders[i].innerHTML = `${adminDayNamesShortDisplay[i]}<br><small class="date-in-header">${dayOfMonth}.${month}.</small>`; } } renderAdminShiftPlanTable(monday);
+        const monday = new Date(date); monday.setDate(date.getDate() - (date.getDay() + 6) % 7);
+        const sunday = new Date(monday); sunday.setDate(monday.getDate() + 6);
+        if (adminCurrentWeekDisplay) {
+            const mondayFormattedNav = `${formatAdminNumber(monday.getDate())}. ${monday.toLocaleDateString('de-DE', { month: 'short' })}`;
+            const sundayFormattedNav = `${formatAdminNumber(sunday.getDate())}. ${sunday.toLocaleDateString('de-DE', { month: 'short' })}`;
+            adminCurrentWeekDisplay.textContent = `Woche: ${mondayFormattedNav} - ${sundayFormattedNav}`;
+        }
+        for (let i = 0; i < 7; i++) {
+            const dayInCycle = new Date(monday); dayInCycle.setDate(monday.getDate() + i);
+            const dayOfMonth = formatAdminNumber(dayInCycle.getDate()); const month = formatAdminNumber(dayInCycle.getMonth() + 1);
+            if (adminDayHeaders[i]) { adminDayHeaders[i].innerHTML = `${adminDayNamesShortDisplay[i]}<br><small class="date-in-header">${dayOfMonth}.${month}.</small>`; }
+        }
+        renderAdminShiftPlanTable(date);
     }
-
     if (adminPrevWeekBtn) { adminPrevWeekBtn.addEventListener('click', function() { currentAdminShiftDate.setDate(currentAdminShiftDate.getDate() - 7); displayAdminShiftWeek(currentAdminShiftDate); }); }
     if (adminNextWeekBtn) { adminNextWeekBtn.addEventListener('click', function() { currentAdminShiftDate.setDate(currentAdminShiftDate.getDate() + 7); displayAdminShiftWeek(currentAdminShiftDate); }); }
     if (adminGoToWeekBtn) { adminGoToWeekBtn.addEventListener('click', function() { const year = parseInt(adminYearInput.value); const week = parseInt(adminWeekInput.value); if (!isNaN(year) && !isNaN(week) && week >= 1 && week <= 53 && year >=1900 && year <= 2100) { currentAdminShiftDate = getDateOfISOWeek(week, year); displayAdminShiftWeek(currentAdminShiftDate); } else { alert("Bitte geben Sie ein gültiges Jahr und eine gültige Kalenderwoche ein."); } }); }
@@ -382,15 +410,8 @@ document.addEventListener('DOMContentLoaded', function() {
         vacationRequestsTableBody.innerHTML = '';
         try {
             const storedRequests = localStorage.getItem('vacationRequests');
-            if (storedRequests) {
-                adminVacationRequestsData = JSON.parse(storedRequests);
-            } else {
-                console.log("Keine Anträge im localStorage für Admin, verwende ggf. initial definierte Beispiele oder leeres Array.");
-            }
-        } catch (e) {
-            console.error("Fehler beim Laden der Urlaubsanträge aus localStorage für Admin in renderVacationRequestsTable:", e);
-            adminVacationRequestsData = [];
-        }
+            if (storedRequests) { adminVacationRequestsData = JSON.parse(storedRequests); }
+        } catch (e) { console.error("Fehler beim Laden der Urlaubsanträge aus localStorage:", e); adminVacationRequestsData = []; }
         if (adminVacationRequestsData.length === 0) {
             const row = vacationRequestsTableBody.insertRow(); const cell = row.insertCell(); cell.colSpan = 8;
             cell.textContent = "Keine Urlaubsanträge vorhanden."; cell.style.textAlign = "center"; cell.style.padding = "20px"; return;
@@ -403,77 +424,48 @@ document.addEventListener('DOMContentLoaded', function() {
             row.insertCell().textContent = formatDateForDisplay(request.endDate);
             row.insertCell().textContent = request.requestedDays;
             row.insertCell().textContent = request.reason || "-";
-            const statusCell = row.insertCell();
-            statusCell.textContent = request.status;
-            statusCell.className = `status-${request.status.toLowerCase()}`;
+            const statusCell = row.insertCell(); statusCell.textContent = request.status; statusCell.className = `status-${request.status.toLowerCase()}`;
             const actionsCell = row.insertCell(); actionsCell.classList.add('action-buttons');
             if (request.status === "beantragt") {
-                const approveBtn = document.createElement('button'); approveBtn.textContent = 'Genehmigen';
-                approveBtn.classList.add('btn-success'); approveBtn.addEventListener('click', () => handleVacationRequest(request.id, 'genehmigt'));
-                actionsCell.appendChild(approveBtn);
-                const rejectBtn = document.createElement('button'); rejectBtn.textContent = 'Ablehnen';
-                rejectBtn.classList.add('btn-danger'); rejectBtn.addEventListener('click', () => handleVacationRequest(request.id, 'abgelehnt'));
-                actionsCell.appendChild(rejectBtn);
+                const approveBtn = document.createElement('button'); approveBtn.textContent = 'Genehmigen'; approveBtn.classList.add('btn-success'); approveBtn.addEventListener('click', () => handleVacationRequest(request.id, 'genehmigt')); actionsCell.appendChild(approveBtn);
+                const rejectBtn = document.createElement('button'); rejectBtn.textContent = 'Ablehnen'; rejectBtn.classList.add('btn-danger'); rejectBtn.addEventListener('click', () => handleVacationRequest(request.id, 'abgelehnt')); actionsCell.appendChild(rejectBtn);
             } else { actionsCell.textContent = "-"; }
         });
     }
-
     function handleVacationRequest(requestId, newStatus) {
         const requestIndex = adminVacationRequestsData.findIndex(req => req.id === requestId);
         if (requestIndex === -1) return;
-
         const request = adminVacationRequestsData[requestIndex];
         const oldStatus = request.status;
         request.status = newStatus;
-
         const employeeIndex = adminEmployeesData.findIndex(emp => emp.id === request.employeeId || emp.name === request.employeeName);
-
         if (newStatus === 'genehmigt') {
-            if (employeeIndex > -1) {
-                adminEmployeesData[employeeIndex].vacationDaysTaken = (adminEmployeesData[employeeIndex].vacationDaysTaken || 0) + request.requestedDays;
-            }
-            let currentDateIter = new Date(request.startDate);
-            const endDateObj = new Date(request.endDate);
+            if (employeeIndex > -1) { adminEmployeesData[employeeIndex].vacationDaysTaken = (adminEmployeesData[employeeIndex].vacationDaysTaken || 0) + request.requestedDays; }
+            let currentDateIter = new Date(request.startDate); const endDateObj = new Date(request.endDate);
             while (currentDateIter <= endDateObj) {
                 const year = currentDateIter.getFullYear(); const isoWeek = getAdminISOWeek(currentDateIter);
-                const dayOfWeekJS = currentDateIter.getDay(); const dayKeyLookup = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
-                const dayKey = dayKeyLookup[dayOfWeekJS]; const weekKeyToUpdate = `${year}-W${isoWeek}`;
+                const dayKey = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][currentDateIter.getDay()]; const weekKeyToUpdate = `${year}-W${isoWeek}`;
                 if (!allShiftData[weekKeyToUpdate]) { allShiftData[weekKeyToUpdate] = []; }
                 let employeeShiftEntry = allShiftData[weekKeyToUpdate].find(s => s.name === request.employeeName);
-                if (!employeeShiftEntry) {
-                    employeeShiftEntry = { name: request.employeeName, Mo: "/", Di: "/", Mi: "/", Do: "/", Fr: "/", Sa: "/", So: "/", privateNotes: {} };
-                    allShiftData[weekKeyToUpdate].push(employeeShiftEntry);
-                }
-                if (employeeShiftEntry.privateNotes && employeeShiftEntry.privateNotes[dayKey]) {
-                    delete employeeShiftEntry.privateNotes[dayKey];
-                    if (Object.keys(employeeShiftEntry.privateNotes).length === 0) { delete employeeShiftEntry.privateNotes; }
-                }
+                if (!employeeShiftEntry) { employeeShiftEntry = { name: request.employeeName, Mo: "/", Di: "/", Mi: "/", Do: "/", Fr: "/", Sa: "/", So: "/" }; allShiftData[weekKeyToUpdate].push(employeeShiftEntry); }
+                if (employeeShiftEntry.privateNotes && employeeShiftEntry.privateNotes[dayKey]) { delete employeeShiftEntry.privateNotes[dayKey]; if (Object.keys(employeeShiftEntry.privateNotes).length === 0) { delete employeeShiftEntry.privateNotes; } }
                 employeeShiftEntry[dayKey] = "Urlaub";
                 currentDateIter.setDate(currentDateIter.getDate() + 1);
             }
         } else if (newStatus === 'abgelehnt' && oldStatus === 'genehmigt') {
-            if (employeeIndex > -1) {
-                adminEmployeesData[employeeIndex].vacationDaysTaken = Math.max(0, (adminEmployeesData[employeeIndex].vacationDaysTaken || 0) - request.requestedDays);
-            }
-            let currentDateIter = new Date(request.startDate);
-            const endDateObj = new Date(request.endDate);
+            if (employeeIndex > -1) { adminEmployeesData[employeeIndex].vacationDaysTaken = Math.max(0, (adminEmployeesData[employeeIndex].vacationDaysTaken || 0) - request.requestedDays); }
+            let currentDateIter = new Date(request.startDate); const endDateObj = new Date(request.endDate);
             while (currentDateIter <= endDateObj) {
                 const year = currentDateIter.getFullYear(); const isoWeek = getAdminISOWeek(currentDateIter);
-                const dayOfWeekJS = currentDateIter.getDay(); const dayKeyLookup = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
-                const dayKey = dayKeyLookup[dayOfWeekJS]; const weekKeyToUpdate = `${year}-W${isoWeek}`;
+                const dayKey = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"][currentDateIter.getDay()]; const weekKeyToUpdate = `${year}-W${isoWeek}`;
                 if (allShiftData[weekKeyToUpdate]) {
                     let employeeShiftEntry = allShiftData[weekKeyToUpdate].find(s => s.name === request.employeeName);
-                    if (employeeShiftEntry && employeeShiftEntry[dayKey] === "Urlaub") {
-                        employeeShiftEntry[dayKey] = "/";
-                    }
+                    if (employeeShiftEntry && employeeShiftEntry[dayKey] === "Urlaub") { employeeShiftEntry[dayKey] = "/"; }
                 }
                 currentDateIter.setDate(currentDateIter.getDate() + 1);
             }
         }
-        try {
-            localStorage.setItem('vacationRequests', JSON.stringify(adminVacationRequestsData));
-        } catch (e) { console.error("Fehler beim Speichern der Urlaubsanträge im localStorage (Admin):", e); }
-
+        try { localStorage.setItem('vacationRequests', JSON.stringify(adminVacationRequestsData)); } catch (e) { console.error("Fehler beim Speichern der Urlaubsanträge:", e); }
         renderVacationRequestsTable();
         if (document.getElementById('admin-section-employees').classList.contains('active-section')) { renderEmployeeTable(); }
         if (document.getElementById('admin-section-shifts').classList.contains('active-section')) { displayAdminShiftWeek(currentAdminShiftDate); }
@@ -494,35 +486,34 @@ document.addEventListener('DOMContentLoaded', function() {
         const targetSection = document.getElementById(`admin-section-${sectionId}`);
         if (targetSection) {
             targetSection.classList.add('active-section');
-            if (linkElement) { linkElement.classList.add('active-link'); }
-            if (adminMainHeader) {
-                if (linkElement) { adminMainHeader.textContent = linkElement.textContent; }
-                else if (sectionId === 'dashboard') { adminMainHeader.textContent = "Übersicht"; }
-            }
+            if (linkElement) { linkElement.classList.add('active-link'); if (adminMainHeader) { adminMainHeader.textContent = linkElement.textContent; }}
+            else if (sectionId === 'dashboard' && adminMainHeader) { adminMainHeader.textContent = "Übersicht"; }
+            
+            // Führe die passende Render-Funktion für die gewählte Sektion aus
             if (sectionId === 'infos') { renderImportantInfosList(); }
             else if (sectionId === 'employees') { renderEmployeeTable(); }
             else if (sectionId === 'dashboard') { renderAdminDashboardStats(); }
-            else if (sectionId === 'shifts') { populateShiftSuggestions(); displayAdminShiftWeek(currentAdminShiftDate); }
-            else if (sectionId === 'vacationrequests') {
-                try {
-                    const storedRequests = localStorage.getItem('vacationRequests');
-                    if (storedRequests) {
-                        adminVacationRequestsData = JSON.parse(storedRequests);
-                    } else if (adminVacationRequestsData.length === 0) {
-                        console.log("Keine Anträge im localStorage, lade Standard-Beispiele für Admin.");
-                    }
-                } catch (e) {
-                    console.error("Fehler beim Laden von Urlaubsanträgen aus localStorage in showSection:", e);
-                    adminVacationRequestsData = [];
-                }
-                renderVacationRequestsTable();
-            }
+            else if (sectionId === 'shifts') { displayAdminShiftWeek(currentAdminShiftDate); }
+            else if (sectionId === 'vacationrequests') { renderVacationRequestsTable(); }
         } else { console.warn(`Sektion mit ID admin-section-${sectionId} nicht gefunden.`); }
     }
 
-    sidebarNavLinks.forEach(link => { if (link.getAttribute('href') === 'login.html') { return; } link.addEventListener('click', function(event) { event.preventDefault(); const sectionId = this.dataset.section; showSection(sectionId, this); }); });
+    sidebarNavLinks.forEach(link => {
+        if (link.getAttribute('href') === 'login.html') { return; }
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const sectionId = this.dataset.section;
+            showSection(sectionId, this);
+        });
+    });
     const initialLink = document.querySelector('.sidebar-nav a[data-section="dashboard"]');
-    if (initialLink) { showSection('dashboard', initialLink); }
-    else { if (sidebarNavLinks.length > 0 && sidebarNavLinks[0].dataset.section) { if (sidebarNavLinks[0].getAttribute('href') !== 'login.html') { showSection(sidebarNavLinks[0].dataset.section, sidebarNavLinks[0]); } } }
-
+    if (initialLink) {
+        showSection('dashboard', initialLink);
+    } else if (sidebarNavLinks.length > 0) {
+        // Fallback: Zeige die erste verfügbare Sektion an
+        const firstAvailableLink = Array.from(sidebarNavLinks).find(l => l.getAttribute('href') !== 'login.html');
+        if (firstAvailableLink) {
+            showSection(firstAvailableLink.dataset.section, firstAvailableLink);
+        }
+    }
 });
