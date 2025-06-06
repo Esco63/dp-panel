@@ -1,0 +1,109 @@
+/* css/login-style.css */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa; /* Gleicher heller Hintergrund wie beim Dashboard */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Stellt sicher, dass der Container die volle Höhe einnimmt */
+    color: #343a40;
+}
+
+.login-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.login-box {
+    background-color: #ffffff;
+    padding: 30px 40px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px; /* Maximale Breite der Login-Box */
+    text-align: center;
+}
+
+.login-box h2 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    color: #0056b3; /* Passend zum Dashboard */
+    font-weight: 500;
+    font-size: 1.8em;
+}
+
+.input-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    font-size: 0.9em;
+    color: #495057;
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1em;
+    box-sizing: border-box; /* Wichtig, damit Padding und Border die Breite nicht sprengen */
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="password"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+    outline: none;
+}
+
+.login-btn {
+    width: 100%;
+    padding: 12px 18px;
+    background-color: #007bff; /* Gleiches Blau wie Dashboard-Buttons */
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 1.1em;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out, transform 0.1s ease;
+    margin-top: 10px; /* Etwas Abstand nach oben */
+}
+
+.login-btn:hover {
+    background-color: #0056b3;
+    transform: translateY(-1px);
+}
+
+.login-btn:active {
+    transform: translateY(0px);
+}
+
+.login-options {
+    margin-top: 20px;
+    font-size: 0.9em;
+}
+
+.login-options a {
+    color: #007bff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.login-options a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}

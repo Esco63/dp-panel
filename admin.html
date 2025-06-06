@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dienstplan Panel - Admin Bereich</title>
+    <link rel="stylesheet" href="css/admin-style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+</head>
+<body>
+    <div class="admin-layout">
+        <aside class="admin-sidebar">
+            <div class="sidebar-header">
+                <h3>Admin Panel</h3>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" data-section="dashboard">Übersicht</a></li>
+                    <li><a href="#" data-section="employees">Mitarbeiter verwalten</a></li>
+                    <li><a href="#" data-section="shifts">Schichtplan bearbeiten</a></li>
+                    <li><a href="#" data-section="infos">Wichtige Infos verwalten</a></li>
+                    <li><a href="#" data-section="vacationrequests">Urlaubsanträge</a><li>
+                    <li><a href="#" data-section="settings">Einstellungen</a></li>
+                    <li><a href="login.html">Logout</a></li> 
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="admin-main-content">
+            <header class="admin-header">
+                <h1>Willkommen im Admin Bereich</h1>
+            </header>
+            
+            <section id="admin-section-dashboard" class="admin-section active-section">
+                <h2>Übersicht</h2>
+                <div class="dashboard-stats-grid">
+                    <div class="stat-card">
+                        <h3>Mitarbeiter</h3>
+                        <p id="statEmployeeCount" class="stat-value">Lade...</p>
+                        <a href="#" data-section="employees" class="stat-link">Verwalten &rarr;</a>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Wichtige Infos</h3>
+                        <p id="statInfoCount" class="stat-value">Lade...</p>
+                        <a href="#" data-section="infos" class="stat-link">Verwalten &rarr;</a>
+                    </div>
+                    <div class="stat-card">
+                        <h3>Geplante Wochen</h3>
+                        <p id="statPlannedWeeksCount" class="stat-value">Lade...</p>
+                        <a href="#" data-section="shifts" class="stat-link">Pläne bearbeiten &rarr;</a>
+                    </div>
+                </div>
+            </section>
+
+            <section id="admin-section-employees" class="admin-section">
+                <h2>Mitarbeiter verwalten</h2>
+                <button id="openAddEmployeeModalBtn" class="btn-primary" style="margin-bottom: 20px;">Neuen Mitarbeiter anlegen</button>
+                <div class="table-container">
+                    <table id="employeesTable" class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>E-Mail</th>
+                                <th>Rolle</th>
+                                <th>Urlaubstage (Gesamt / Gen. / Rest)</th>
+                                <th>Aktionen</th>
+                            </tr>
+                        </thead>
+                        <tbody id="employeesTableBody">
+                            <tr>
+                                <td colspan="5" style="text-align:center; padding: 20px;">Keine Mitarbeiterdaten geladen.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section id="admin-section-shifts" class="admin-section">
+                <h2>Schichtplan bearbeiten</h2>
+                <div class="plan-navigation admin-plan-navigation">
+                    <button id="adminPrevWeekBtn">&lt;&lt; Vorherige Woche</button>
+                    <h3 id="adminCurrentWeekDisplay">Woche: Lade...</h3>
+                    <button id="adminNextWeekBtn">Nächste Woche &gt;&gt;</button>
+                </div>
+                <div class="week-filter-section admin-week-filter">
+                    <input type="number" id="adminYearInput" placeholder="Jahr (z.B. 2025)" min="1900" max="2100">
+                    <input type="number" id="adminWeekInput" placeholder="KW (1-53)" min="1" max="53">
+                    <button id="adminGoToWeekBtn">Gehe zu KW</button>
+                </div>
+                <div class="plan-table-container admin-plan-table-container">
+                    <table id="adminShiftsTable" class="data-table"> 
+                        <thead>
+                            <tr>
+                                <th>Mitarbeiter</th>
+                                <th id="adminHeaderMo">Mo.</th>
+                                <th id="adminHeaderDi">Di.</th>
+                                <th id="adminHeaderMi">Mi.</th>
+                                <th id="adminHeaderDo">Do.</th>
+                                <th id="adminHeaderFr">Fr.</th>
+                                <th id="adminHeaderSa">Sa.</th>
+                                <th id="adminHeaderSo">So.</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminShiftsTableBody">
+                            <tr>
+                                <td colspan="8" style="text-align:center; padding: 20px;">Schichtplan wird geladen...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div style="margin-top: 20px;">
+                    <button id="saveShiftPlanChangesBtn" class="btn-primary" style="display: none;">Änderungen am Plan speichern</button>
+                </div>
+            </section>
+
+            <section id="admin-section-infos" class="admin-section">
+                <h2>Wichtige Infos verwalten</h2>
+                <div class="form-container add-info-form">
+                    <h3>Neue Info hinzufügen</h3>
+                    <form id="addInfoForm">
+                        <div class="form-group">
+                            <label for="newInfoText">Info-Text:</label>
+                            <textarea id="newInfoText" name="newInfoText" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn-primary">Info hinzufügen</button>
+                    </form>
+                </div>
+                <div class="list-container current-infos-list">
+                    <h3>Aktuelle Informationen</h3>
+                    <ul id="importantInfosListUL">
+                        <li>Keine Infos vorhanden.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="admin-section-vacationrequests" class="admin-section">
+            <h2>Urlaubsanträge verwalten</h2>
+            <div class="table-container">
+                <table id="vacationRequestsTable" class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Mitarbeiter</th>
+                            <th>Von</th>
+                            <th>Bis</th>
+                            <th>Tage</th>
+                            <th>Grund</th>
+                            <th>Status</th>
+                            <th>Aktionen</th>
+                        </tr>
+                    </thead>
+                    <tbody id="vacationRequestsTableBody">
+                        <tr><td colspan="8" style="text-align:center; padding:20px;">Keine Anträge vorhanden.</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+        <section id="admin-section-settings" class="admin-section">
+
+
+            <section id="admin-section-settings" class="admin-section">
+                <h2>Einstellungen</h2>
+                <p>Allgemeine Einstellungen für das Dienstplan-Panel.</p>
+            </section>
+        </main> 
+    </div> 
+
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeEmployeeModalBtn">&times;</span>
+            <h3 id="employeeModalTitle">Mitarbeiter hinzufügen</h3>
+            <form id="employeeForm">
+                <input type="hidden" id="employeeId"> 
+                <div class="form-group">
+                    <label for="employeeName">Name:</label>
+                    <input type="text" id="employeeName" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeEmail">E-Mail:</label>
+                    <input type="email" id="employeeEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="employeeRole">Rolle:</label>
+                    <select id="employeeRole">
+                        <option value="Mitarbeiter">Mitarbeiter</option>
+                        <option value="Admin">Admin</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="employeeVacationDays">Urlaubstage pro Jahr:</label>
+                    <input type="number" id="employeeVacationDays" min="0" value="25">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="saveEmployeeBtn" class="btn-primary">Speichern</button>
+                    <button type="button" id="cancelEmployeeBtn" class="btn-secondary">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div id="shiftEditModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeShiftEditModalBtn">&times;</span>
+            <h3 id="shiftEditModalTitle">Schicht bearbeiten</h3> 
+            <form id="shiftEditForm">
+                <input type="hidden" id="shiftEditEmployeeNameHidden">
+                <input type="hidden" id="shiftEditDayKeyHidden">
+                <input type="hidden" id="shiftEditYearHidden">
+                <input type="hidden" id="shiftEditIsoWeekHidden">
+
+                <div class="form-group">
+                    <label>Mitarbeiter:</label>
+                    <p id="shiftEditEmployeeNameDisplay" class="form-control-static"></p>
+                </div>
+                <div class="form-group">
+                    <label>Tag:</label>
+                    <p id="shiftEditDayDisplay" class="form-control-static"></p>
+                </div>
+                <div class="form-group">
+                    <label for="shiftEditTextInput">Schichttext (z.B. "09-17 Uhr", "Urlaub", "/"):</label>
+                    <input type="text" id="shiftEditTextInput" list="shiftTextSuggestions" required>
+                    <datalist id="shiftTextSuggestions">
+                        </datalist>
+                    </div>
+                <div class="form-group">
+                    <label for="shiftEditPrivateNoteInput">Private Notiz (optional, für Mitarbeiter sichtbar):</label>
+                    <textarea id="shiftEditPrivateNoteInput" rows="3"></textarea>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" id="saveShiftChangeBtn" class="btn-primary">Änderung speichern</button>
+                    <button type="button" id="cancelShiftEditBtn" class="btn-secondary">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="generalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeGeneralModalBtn">&times;</span>
+            <h3 id="generalModalTitle">Titel</h3>
+            <p id="generalModalMessage">Nachricht...</p>
+            <div class="modal-actions" id="generalModalActions" style="text-align: right; margin-top: 20px;">
+                </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

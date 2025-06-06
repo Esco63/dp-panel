@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dienstplan Panel - Dashboard</title>
+    <link rel="stylesheet" href="css/style.css"> 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap">
+</head>
+<body>
+
+    <div class="dashboard-container">
+
+        <header class="info-header">
+            <h2>Wichtige Infos</h2>
+            <div class="info-content">
+                </div>
+        </header>
+
+        <main class="plan-section">
+            <div class="plan-navigation">
+                <button id="prevWeekBtn">&lt;&lt; Vorherige Woche</button>
+                <h3 id="currentWeekDisplay">Woche: Lade...</h3>
+                <button id="nextWeekBtn">Nächste Woche &gt;&gt;</button>
+            </div>
+
+            <div class="week-filter-section">
+                <input type="number" id="yearInput" placeholder="Jahr (z.B. 2025)" min="1900" max="2100">
+                <input type="number" id="weekInput" placeholder="KW (1-53)" min="1" max="53">
+                <button id="goToWeekBtn">Gehe zu KW</button>
+            </div>
+
+            <div class="monthly-hours-section">
+                <h4>Monatsübersicht für <span id="employeeNameForHours">Lade...</span>:</h4>
+                <p>Geplante Stunden im <span id="currentMonthForHours">Lade...</span>: <strong id="totalMonthlyHours">Lade...</strong></p>
+            </div>
+
+            <div class="vacation-info-section">
+                <h4>Mein Urlaubsstand (für <span id="vacationEmployeeName">Lade...</span>, Jahr <span id="vacationCurrentYear">Lade...</span>):</h4>
+                <p>Gesamtanspruch: <strong id="vacationTotal">Lade...</strong> Tage</p>
+                <p>Genommen: <strong id="vacationTaken">Lade...</strong> Tage</p>
+                <p>Verbleibend: <strong id="vacationRemaining">Lade...</strong> Tage</p>
+                <button id="openVacationRequestModalBtn" class="btn-primary" style="margin-top:10px;">Urlaub beantragen</button>
+            </div>
+
+            <div class="plan-table-container">
+                <table class="dienstplan-table">
+                    <thead>
+                        <tr>
+                            <th>Mitarbeiter</th>
+                            <th id="header-mo">Mo.</th>
+                            <th id="header-di">Di.</th>
+                            <th id="header-mi">Mi.</th>
+                            <th id="header-do">Do.</th>
+                            <th id="header-fr">Fr.</th>
+                            <th id="header-sa">Sa.</th>
+                            <th id="header-so">So.</th>
+                        </tr>
+                    </thead>
+                    <tbody id="dienstplan-body">
+                        <tr>
+                            <td colspan="8" style="text-align:center; padding: 20px;">Dienstplan wird geladen...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2025 Dein Dienstplan Panel</p>
+        </footer>
+
+    </div> <div id="noteModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeNoteModalBtn">&times;</span>
+            <h3 id="noteModalTitle">Private Notiz</h3>
+            <p id="noteModalText">Hier wird der Notiztext geladen...</p>
+        </div>
+    </div>
+    <div id="vacationRequestModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeVacationRequestModalBtn">&times;</span>
+            <h3>Urlaub beantragen</h3>
+            <form id="vacationRequestForm">
+                <div class="form-group">
+                    <label for="vacationStartDate">Startdatum:</label>
+                    <input type="date" id="vacationStartDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="vacationEndDate">Enddatum:</label>
+                    <input type="date" id="vacationEndDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="vacationReason">Grund (optional):</label>
+                    <textarea id="vacationReason" rows="3"></textarea>
+                </div>
+                <div class="form-actions" style="text-align: right; margin-top: 20px;">
+                    <button type="submit" class="btn-primary">Antrag senden</button>
+                    <button type="button" id="cancelVacationRequestBtn" class="btn-secondary">Abbrechen</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div id="generalModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeGeneralModalBtn">&times;</span>
+            <h3 id="generalModalTitle">Titel</h3>
+            <p id="generalModalMessage">Nachricht...</p>
+            <div class="modal-actions" id="generalModalActions" style="text-align: right; margin-top: 20px;">
+                </div>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script> 
+</body>
+</html>
